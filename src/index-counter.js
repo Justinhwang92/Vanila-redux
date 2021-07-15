@@ -12,6 +12,7 @@ const MINUS = "MINUS";
 
 // reducer is a function that modifies your data
 // whatever reducer returns, it will be the state of the application
+// * only way to change the state is sending it to action
 const countModifier = (count = 0, action) => {
   switch (action.type) {
     case ADD:

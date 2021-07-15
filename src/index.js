@@ -1,4 +1,5 @@
 import { createStore } from "redux";
+
 const form = document.querySelector("form");
 const input = document.querySelector("input");
 const ul = document.querySelector("ul");
@@ -6,10 +7,11 @@ const ul = document.querySelector("ul");
 const ADD_TODO = "ADD_TODO";
 const DELETE_TODO = "DELETE_TODO";
 
+// we don't use mutation, we return the new object
 const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [];
+      return [...state, { text: action.text, id: Date.now() }];
     case DELETE_TODO:
       return [];
     default:
@@ -19,11 +21,7 @@ const reducer = (state = [], action) => {
 
 const store = createStore(reducer);
 
-const createToDo = (toDo) => {
-  const li = document.querySelector("li");
-  li.innerText = toDo;
-  ul.appendChild(li);
-};
+store.subscribe(() => console.log(store.getState()));
 
 const onSubmit = (e) => {
   e.preventDefault();
