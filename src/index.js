@@ -25,9 +25,11 @@ const deleteToDo = (id) => {
 const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [{ text: action.text, id: Date.now() }, ...state];
+      const newToDoObj = { text: action.text, id: Date.now() };
+      return [newToDoObj, ...state];
     case DELETE_TODO:
-      return [];
+      const cleaned = state.filter((toDo) => toDo.id !== action.id);
+      return cleaned; // create new object without the target element
     default:
       return state;
   }
@@ -43,13 +45,13 @@ const dspatchAddToDo = (text) => {
 
 const dispatchDeleteToDo = (e) => {
   // console.log(e.target.parentNode.id);
-  const id = e.target.parentNode.id;
+  const id = parseInt(e.target.parentNode.id);
   store.dispatch(deleteToDo(id));
 };
 
 const paintToDos = () => {
   const toDos = store.getState();
-  ul.innerHTML = "";
+  ul.innerHTML = ""; // clean the whole list
   toDos.forEach((toDo) => {
     const li = document.createElement("li");
     const btn = document.createElement("button");
