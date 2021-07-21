@@ -28,8 +28,8 @@ const reducer = (state = [], action) => {
       const newToDoObj = { text: action.text, id: Date.now() };
       return [newToDoObj, ...state];
     case DELETE_TODO:
-      const cleaned = state.filter((toDo) => toDo.id !== action.id);
-      return cleaned; // create new object without the target element
+      const cleaned = state.filter((toDo) => toDo.id !== action.id); // create new object without the target element - use filter
+      return cleaned;
     default:
       return state;
   }
